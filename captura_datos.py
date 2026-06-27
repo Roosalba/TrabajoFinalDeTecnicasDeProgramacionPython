@@ -35,10 +35,10 @@ def listar_productos():
     return resultados
 
 
-def buscar_productos():
+def buscar_productos(id):
     conexion=obtener_conexion()
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM productos WHERE id > ?",(id,))
+    cursor.execute("SELECT * FROM productos WHERE id = ?",(id,))
     resultado=cursor.fetchone()
     conexion.close()
     return resultado
