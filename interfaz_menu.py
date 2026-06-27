@@ -81,11 +81,39 @@ def principal():
              print(f"\n{Fore.GREEN}--- Buscar  Productos ---")
              while True:
                  
-             try:
-                buscar_producto=int(input("Ingrese el id del producto a buscar: "))
+                try:
+                    buscar_producto=int(input("Ingrese el id del producto a buscar: "))
+                   
+                    resul=captura_datos.buscar_productos(buscar_producto)
+                    if not resul:
+                       print(f"{Fore.RED}No se encontró el producto con ese ID.")
+
+                    else:
+                        for produ in resul:
+                            print(f"ID:{resul[0]} NOMBRE:{resul[1]}  DESCRIPCION:{resul[2]}  CANTIDAD:{resul[3]}  PRECIO:{resul[4]} CATEGORIA:{resul[5]}")
+                            break
+                except ValueError:
+                    print(f"{Fore.RED}Error: debe ingresar un numero")
                 
-            except  
-                
+
+        elif opcion=="4":
+             print(f"\n{Fore.GREEN}--- Eliminar  Productos ---")
+             while True:
+                try:
+                    id_eliminar=int(input("Ingrese el ID del producto a eliminar: "))
+                    producto=captura_datos.eliminar_producto(id_eliminar)
+                     
+                    if not producto:
+                        print(f"{Fore.RED}No existe ningún producto con el ID {id_eliminar}. Intente de nuevo.")
+
+                    else:
+                        captura_datos.eliminar_producto(id_eliminar)
+                        print(f"{Fore.GREEN}¡Producto eliminado con éxito!")
+                        break      
+                except ValueError:
+                    print(f"{Fore.RED}Error: debe ingresar un numero")
+                   
+
 
         elif opcion=="6":
             print("Fin del programa")
