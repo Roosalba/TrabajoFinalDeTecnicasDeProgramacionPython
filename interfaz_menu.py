@@ -115,11 +115,83 @@ def principal():
                 except ValueError:
                     print(f"{Fore.RED}Error: debe ingresar un numero")
                    
+        elif  opcion =="5":
+            print(f"\n{Fore.GREEN}--- Editar  Productos ---")
+            
+            while True:
+                try:
+                    id_editar = int(input("Ingrese el ID del producto que desea editar: "))
+                except ValueError:
+                 print(f"{Fore.RED}Error: El ID debe ser un número entero.")
+                 continue
+                print("Elija la opcion a editar: ")
+                print("1.Editar nombre: ")
+                print("2.Editar descripcion: ")
+                print("3.Editar cantidad")
+                print("4.Editar precio")
+                print("5.Editar categoria ")
+                print("6.Salir")
+
+        opcion=input(f"\n{Fore.YELLOW}Seleccione una opción (1-6): {Style.RESET_ALL}").strip()
+
+        if opcion=="":
+            print("El campo no puede estar vacio")
+            continue
+                
+        elif opcion =="1":
+            print(f"\n{Fore.GREEN}---  Nuevo nombre ---")
+            while True:
+                nuevo_nombre=str(input("Ingrese el nombre del producto: "))
+                if nuevo_nombre=="":
+                    print("El nombre no puede estar vacio")
+                    continue
+                break
+            while True:
+                descripcion=str(input("Ingrese la descripcion del producto: "))
+                if descripcion=="":
+                    print("La descripcion no puede estar vacia")
+                    continue
+                break
+            while True:
+                try:
+                    cantidad=int(input("Ingrese la cantidad (Entero): "))
+                    if cantidad <0:
+                        print("La cantidad no puede ser negativa")
+                        continue
+
+                    break 
+
+                except ValueError:
+                    print(f"{Fore.RED}Error: La cantidad debe ser un número entero")
+                          
+            while True:
+                try:
+                    precio=float(input("Ingrese el precio (Decimal): "))
+                    if precio < 0:
+                        print("El precio no puede ser negativo")
+                        continue
+                    break
+                except ValueError:
+                    print(f"{Fore.RED}Error: el precio debe ser un número decimal")
+            while True:
+                    categoria=str(input("Ingrese la categoria: "))
+                    if categoria=="":
+                        print("La categria no puede estra vacia")
+                        continue
+                    break
+            captura_datos.editar_producto(nombre,descripcion,cantidad,precio,categoria)
+            print(f"\n{Fore.GREEN}¡Producto registrado con éxito!")
+
+
+
 
 
         elif opcion=="6":
             print("Fin del programa")
             break
+
+        else:
+            print("Opcion incorrecta")
 
 if __name__ == "__main__":
     principal()
