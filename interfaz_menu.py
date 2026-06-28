@@ -83,15 +83,16 @@ def principal():
                  
                 try:
                     buscar_producto=int(input("Ingrese el id del producto a buscar: "))
+                    if buscar_producto==0:
+                        break
                    
-                    resul=captura_datos.buscar_productos(buscar_producto)
-                    if not resul:
+                    produ=captura_datos.buscar_productos(buscar_producto)
+                    if not produ:
                        print(f"{Fore.RED}No se encontró el producto con ese ID.")
-
+                       
                     else:
-                        for produ in resul:
-                            print(f"ID:{resul[0]} NOMBRE:{resul[1]}  DESCRIPCION:{resul[2]}  CANTIDAD:{resul[3]}  PRECIO:{resul[4]} CATEGORIA:{resul[5]}")
-                            break
+                        print(f"ID:{produ[0]} NOMBRE:{produ[1]}  DESCRIPCION:{produ[2]}  CANTIDAD:{produ[3]}  PRECIO:{produ[4]} CATEGORIA:{produ[5]}")
+                        break
                 except ValueError:
                     print(f"{Fore.RED}Error: debe ingresar un numero")
                 
@@ -101,13 +102,14 @@ def principal():
              while True:
                 try:
                     id_eliminar=int(input("Ingrese el ID del producto a eliminar: "))
-                    producto=captura_datos.eliminar_producto(id_eliminar)
+                    if id_eliminar==0:
+                        break
+                    eliminado_exitoso=captura_datos.eliminar_producto(id_eliminar)
                      
-                    if not producto:
+                    if not eliminado_exitoso:
                         print(f"{Fore.RED}No existe ningún producto con el ID {id_eliminar}. Intente de nuevo.")
-
+                        
                     else:
-                        captura_datos.eliminar_producto(id_eliminar)
                         print(f"{Fore.GREEN}¡Producto eliminado con éxito!")
                         break      
                 except ValueError:
