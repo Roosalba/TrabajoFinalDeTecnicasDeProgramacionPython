@@ -182,6 +182,9 @@ def principal():
                 print(f"\n{Fore.GREEN}¡Producto editado con éxito!")
             else:
                 print(f"\n{Fore.RED}Error al guardar los cambios.")
+
+
+                
         elif opcion=="6":
             print("Fin del programa")
             break
