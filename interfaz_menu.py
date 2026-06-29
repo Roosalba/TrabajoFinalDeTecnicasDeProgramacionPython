@@ -116,76 +116,72 @@ def principal():
                     print(f"{Fore.RED}Error: debe ingresar un numero")
                    
         elif  opcion =="5":
-            print(f"\n{Fore.GREEN}--- Editar  Productos ---")
+           
+            print(f"\n{Fore.GREEN}--- Editar Productos ---")
+            
+            # para validar id
+            while True:
+                try:
+                    id_editar = int(input("Ingrese el ID del producto que desea editar (o 0 para regresar): "))
+                    if id_editar == 0:
+                        break # El usuario decidió cancelar
+                    
+                    # Usamos el metodo buscar_productos para buscar el producto
+                    existe = captura_datos.buscar_productos(id_editar)
+
+                    if existe: 
+                        break # Si encuentra el ID, Rompemos este bucle y avanza para pedir los datos, sno se esjecuta el else
+                    else:
+                        print(f"{Fore.RED}Error: El ID {id_editar} no existe en la base de datos. Intente de nuevo.")
+                        
+                except ValueError:
+                    print(f"{Fore.RED}Error: El ID debe ser un número entero.")
+            
+            
+            if id_editar == 0:
+                continue
+
+            
+            # Si el programa llega aqui el ID fue validado
+           
+            print(f"\n{Fore.CYAN}Ingrese los nuevos datos para el producto:")
             
             while True:
-                try:
-                    id_editar = int(input("Ingrese el ID del producto que desea editar: "))
-                except ValueError:
-                 print(f"{Fore.RED}Error: El ID debe ser un número entero.")
-                 continue
-                print("Elija la opcion a editar: ")
-                print("1.Editar nombre: ")
-                print("2.Editar descripcion: ")
-                print("3.Editar cantidad")
-                print("4.Editar precio")
-                print("5.Editar categoria ")
-                print("6.Salir")
+                nuevo_nombre = input("Nuevo Nombre: ").strip()
+                if nuevo_nombre: break
+                print(f"{Fore.RED}El nombre no puede estar vacío.")
 
-        opcion=input(f"\n{Fore.YELLOW}Seleccione una opción (1-6): {Style.RESET_ALL}").strip()
+            while True:
+                descripcion = input("Nueva Descripción: ").strip()
+                if descripcion: break
+                print(f"{Fore.RED}La descripción no puede estar vacía.")
 
-        if opcion=="":
-            print("El campo no puede estar vacio")
-            continue
-                
-        elif opcion =="1":
-            print(f"\n{Fore.GREEN}---  Nuevo nombre ---")
-            while True:
-                nuevo_nombre=str(input("Ingrese el nombre del producto: "))
-                if nuevo_nombre=="":
-                    print("El nombre no puede estar vacio")
-                    continue
-                break
-            while True:
-                descripcion=str(input("Ingrese la descripcion del producto: "))
-                if descripcion=="":
-                    print("La descripcion no puede estar vacia")
-                    continue
-                break
             while True:
                 try:
-                    cantidad=int(input("Ingrese la cantidad (Entero): "))
-                    if cantidad <0:
-                        print("La cantidad no puede ser negativa")
-                        continue
-
-                    break 
-
+                    cantidad = int(input("Nueva Cantidad (Entero): "))
+                    if cantidad >= 0: break
+                    print(f"{Fore.RED}La cantidad no puede ser negativa.")
                 except ValueError:
-                    print(f"{Fore.RED}Error: La cantidad debe ser un número entero")
-                          
+                    print(f"{Fore.RED}Debe ser un número entero.")
+
             while True:
                 try:
-                    precio=float(input("Ingrese el precio (Decimal): "))
-                    if precio < 0:
-                        print("El precio no puede ser negativo")
-                        continue
-                    break
+                    precio = float(input("Nuevo Precio (Decimal): "))
+                    if precio >= 0: break
+                    print(f"{Fore.RED}El precio no puede ser negativo.")
                 except ValueError:
-                    print(f"{Fore.RED}Error: el precio debe ser un número decimal")
+                    print(f"{Fore.RED}Debe ser un número decimal.")
+
             while True:
-                    categoria=str(input("Ingrese la categoria: "))
-                    if categoria=="":
-                        print("La categria no puede estra vacia")
-                        continue
-                    break
-            captura_datos.editar_producto(nombre,descripcion,cantidad,precio,categoria)
-            print(f"\n{Fore.GREEN}¡Producto registrado con éxito!")
+                categoria = input("Nueva Categoría: ").strip()
+                if categoria: break
+                print(f"{Fore.RED}La categoría no puede estar vacía.")
 
-
-
-
-
+            # Guardamos los cambios llamando al  metodo de editar
+            if captura_datos.editar_producto(id_editar, nuevo_nombre, descripcion, cantidad, precio, categoria):
+                print(f"\n{Fore.GREEN}¡Producto editado con éxito!")
+            else:
+                print(f"\n{Fore.RED}Error al guardar los cambios.")
         elif opcion=="6":
             print("Fin del programa")
             break

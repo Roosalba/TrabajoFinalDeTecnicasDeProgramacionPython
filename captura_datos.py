@@ -29,7 +29,7 @@ def eliminar_producto(id):
      if filas_afectadas >0:
          return True
      else:
-         False
+         return False
 
 def listar_productos():
     conexion=obtener_conexion()
@@ -52,20 +52,20 @@ def buscar_productos(id):
 def editar_producto(id,nombre,descripcion,cantidad,precio,categoria):
     conexion=obtener_conexion()
     cursor = conexion.cursor()
-    cursor.execute('UPDATE productos SET nombre =?,descripcion=?,cantidad =?,precio =?,categoria =? WHERE id=?'
-                   
-      (nombre,descripcion,cantidad,precio,categoria,id) )
-                   
-    filas_afectadas = cursor.rowcount # pára mirar las filas que fueron afectadas
+   
+    cursor.execute(
+        'UPDATE productos SET nombre =?,descripcion=?,cantidad =?,precio =?,categoria =? WHERE id=?',
+        (nombre,descripcion,cantidad,precio,categoria,id) 
+    )
+                    
+    filas_afectadas = cursor.rowcount 
     conexion.commit()
     conexion.close()
+    
     if filas_afectadas >0:
         return True
     else:
-        False              
-                    
-                    
-                
+        return False
 
      
     
